@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+public class Konversi {
+
+    static String[] MataUang = {"USD", "IDR", "EUR"};
+    static double[][] NilaiTukar = {
+        {1.0, 15000.0, 0.85},    
+        {0.000067, 1.0, 0.0000567}, 
+        {1.18, 17647.06, 1.0}
+    };
+
+    public static void main(String[] args) {
+        Scanner ih = new Scanner(System.in);
+
+        while (true) {
+            TampilkanMataUang();
+
+            System.out.print("Masukkan nomor jenis mata uang asal: ");
+            int JenisMataUang = ih.nextInt() - 1;
+            if (!isValidIndex(JenisMataUang)) {
+                System.out.println("Mata uang tidak valid! Coba lagi.");
+                continue;
+            }
+
+            System.out.print("Masukkan nomor jenis mata uang tujuan: ");
+            int TujuanIndex = ih.nextInt() - 1;
+            if (!isValidIndex(TujuanIndex)) {
+                System.out.println("Mata uang tidak valid! Coba lagi.");
+                continue;
+            }
+
+            System.out.print("Masukkan Nominal mata uang " + MataUang[JenisMataUang] + ": ");
+            double Nominal = ih.nextDouble();
+
+            if (Nominal < 0) {
+                System.out.println("Nominal tidak boleh negatif! Coba lagi.");
+                continue;
+            }
+
+            double hasilKonversi = KonversiJenisMataUang(JenisMataUang, TujuanIndex, Nominal);
+
+            System.out.printf("Hasil Konversi: %.2f %s\n", hasilKonversi, MataUang[TujuanIndex]);
+
+            System.out.print("Apakah ingin melakukan konversi lagi? (y/n): ");
+            char Pilihan = ih.next().charAt(0);
+            if (Pilihan == 'n' || Pilihan == 'N') {
+                System.out.println("Terima kasih telah menggunakan aplikasi ini.");
+                break;
+            }
+        }
+
+        ih.close();
+    }
+
+    
+    public static void TampilkanMataUang() {
+        System.out.println("Mata uang yang tersedia:");
+        for (int i = 0; i < MataUang.length; i++) {
+            System.out.println((i + 1) + ". " + MataUang[i]);
+        }
+    }
+
+   
+    public static boolean isValidIndex(int index) {
+        return index >= 0 && index < MataUang.length;
+    }
+
+  
+    public static double KonversiJenisMataUang(int Asal, int Tujuan, double Nominal) {
+        return Nominal * NilaiTukar[Asal][Tujuan];
+    }
+
+    
+    public static void TampilkanNilaiTukar() {
+        System.out.println("Nilai tukar mata uang:");
+        for (int i = 0; i < MataUang.length; i++) {
+            for (int j = 0; j < MataUang.length; j++) {
+                System.out.printf("%s ke %s: %.5f\n", MataUang[i], MataUang[j], NilaiTukar[i][j]);
+            }
+        }
+    }
+
+    
+    public static void UbahNamaMataUang(int index, String namaBaru) {
+        if (isValidIndex(index)) {
+            MataUang[index] = namaBaru;
+            System.out.println("Nama mata uang berhasil diubah.");
+        } else {
+            System.out.println("Index mata uang tidak valid.");
+        }
+    }
+}
