@@ -37,9 +37,9 @@ public class Konversi {
                 continue;
             }
 
-            double hasilKonversi = KonversiJenisMataUang(JenisMataUang, TujuanIndex, Nominal);
+            double HasilKonversi = KonversiJenisMataUang(JenisMataUang, TujuanIndex, Nominal);
 
-            System.out.printf("Hasil Konversi: %.2f %s\n", hasilKonversi, MataUang[TujuanIndex]);
+            System.out.printf("Hasil Konversi: %.2f %s\n", HasilKonversi, MataUang[TujuanIndex]);
 
             System.out.print("Apakah ingin melakukan konversi lagi? (y/n): ");
             char Pilihan = ih.next().charAt(0);
@@ -81,10 +81,10 @@ public class Konversi {
     }
 
     
-    public static void UbahNamaMataUang(int index, String namaBaru) {
+    public static void UbahNamaMataUang(int index, String NamaBaru) {
         if (isValidIndex(index)) {
-            MataUang[index] = namaBaru;
-            System.out.println("Nama mata uang berhasil diubah.");
+            MataUang[index] = NamaBaru;
+            System.out.println("Nama mata uang berHasil diubah.");
         } else {
             System.out.println("Index mata uang tidak valid.");
         }
